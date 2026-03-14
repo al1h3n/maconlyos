@@ -14,8 +14,8 @@ Shared dotfiles: `/Users/Account/maconlyos/shared`
 3. `git clone https://gitlab.com/al1h3n/molnios-install.git`<br>
 4. `sudo sh molnios.sh -f`
 
-#### Manual updating:
-1. `nix flake update`
+#### Manual updating (in configurations folder):
+1. `nix flake update --flake .#main`
 2. `darwin-rebuild switch --impure --flake .#main`
 
 ### 🕝 When to install?
