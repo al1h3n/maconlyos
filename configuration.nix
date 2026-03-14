@@ -12,6 +12,7 @@ in {
       ./system/hosts.nix 
       ./system/autolaunch.nix
       ./system/dns.nix
+      ./system/macos.nix
     ];
 
   # 1. Nix settings.
@@ -22,9 +23,9 @@ in {
   networking.hostName = variables.host;
   time.timeZone = variables.zone;
 
-  # 3. User configuration.
+  # 3. User configuration. Use name = "x" to add multiple accounts.
   users.users.${variables.username} = {
-    description = "User account created by MolnixOS configuration.";
+    description = "User account created by MaconlyOS configuration.";
     home = "/Users/${variables.username}";
     shell = pkgs.zsh;
   };
@@ -52,53 +53,18 @@ in {
       mkalias
     ];
   };
-
-  # 6. Fonts.
+  
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
 
-  # 7. macOS-specific system preferences (System Settings equivalent).
-  system = {
-    stateVersion = 5; # nix-darwin state version, not NixOS.
-
-    defaults = {
-      # Dock.
-      dock = {
-        autohide = true;
-        show-recents = false;
-        minimize-to-application = true;
-      };
-      # Finder.
-      finder = {
-        AppleShowAllExtensions = true;
-        ShowPathbar = true;
-        FXDefaultSearchScope = "SCcf"; # Search current folder.
-      };
-      # Keyboard.
-      NSGlobalDomain = {
-        InitialKeyRepeat = 15;   # Closest to autoRepeatDelay = 200ms.
-        KeyRepeat = 2;           # Closest to autoRepeatInterval = 35ms.
-        ApplePressAndHoldEnabled = false; # Allow key repeat.
-      };
-      # Screenshots.
-      screencapture.location = "~/Pictures/Screenshots";
-    };
-
-    # Keyboard shortcut to switch input source (equivalent of hyprland space bind).
-    keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToControl = true; # Equivalent of kb_options = ctrl:nocaps.
-    };
-  };
-
-  # 8. Services.
+  # 6. Services.
   services = {
     # Nix daemon - required on macOS.
     nix-daemon.enable = true;
   };
 
-  # 9. Homebrew - for macOS-only apps not in nixpkgs.
+  # 7. Homebrew - for macOS-only apps not in nixpkgs.
   # Install brew first: brew.sh
   homebrew = {
     enable = true;
@@ -124,25 +90,4 @@ in {
       "PowerPoint" = 462062816;
     };
   };
-
-  # 10. Activation script.
-  system.activationScripts.applications.text =
-    let
-      env = pkgs.buildEnv {
-        name = "system-applications";
-        paths = config.environment.systemPackages;
-        pathsToLink = "/Applications";
-      };
-    in pkgs.lib.mkForce ''
-      # Set up applications.
-      echo "setting up /Applications..." >&2
-      rm -rf /Applications/Nix\ Apps
-      mkdir -p /Applications/Nix\ Apps
-      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-      while read -r src; do
-        app_name=$(basename "$src")
-        echo "copying $src" >&2
-        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-      done
-    '';
 }
