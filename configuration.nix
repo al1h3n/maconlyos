@@ -4,6 +4,16 @@
 let
   variables = import ./variables.nix;
 in {
+  # 1. Imports.
+  imports = [
+      # 1.1. Updating schedule.
+      ./system/updates.nix
+
+      # 1.2. System files.
+      ./system/hosts.nix 
+      ./system/autolaunch.nix
+      ./system/dns.nix
+    ];
 
   # 1. Nix settings.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

@@ -45,24 +45,7 @@
       backupFileExtension = "backup";
     };
   in {
-
-    # =====================
-    # NixOS configuration.
-    # =====================
-    nixosConfigurations.main = pkgsSource.lib.nixosSystem {
-      system = variables.system;
-      modules = [
-        { nixpkgs.overlays = [ nur.overlays.default ]; }
-        hmSource.nixosModules.home-manager
-        ./configuration.nix
-        { home-manager = sharedHmConfig; }
-      ];
-    };
-
-    # =====================
-    # macOS configuration.
-    # =====================
-    darwinConfigurations.main = nix-darwin.lib.darwinSystem {
+  darwinConfigurations.main = nix-darwin.lib.darwinSystem {
       system = variables.system;
       modules = [
         { nixpkgs.overlays = [ nur.overlays.default ]; }

@@ -14,16 +14,10 @@ rec {
 
   zone = "Asia/Almaty";
   
-  lshared = /Users/${username}/dotfiles/shared;
+  lshared = /Users/${username}/maconlyos/shared;
   shared = lshared + "/config"; # Source dotfiles folder.
   media = lshared + "/molnios-media/wallpapers";
   hosts = "${shared}/hosts";
-
-  cursor_name = "clay_white";
-  cursors_dir = shared_root + "/cursors"; 
-  cursor = cursors_dir + "/${cursor_name}";
-  browser = "firefox";
-  theme_gtk = "Breeze-Dark";
 
   zsh = "${shared}/.zshrc";
   zsh_theme = "${shared}/.p10k.zsh";

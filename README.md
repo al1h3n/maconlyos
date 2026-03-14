@@ -2,18 +2,21 @@
 Open variables.nix and change everything you need.<br>
 For instance, location of hyprland configuration.
 
-### ❗Important things:
-1. Add flake.nix and flake.lock (as well as any flakes file) to git:<br>
-`git init`<br>
-`git add .`<br>
-`git commit -m "flakes"`
-
-
 ### ➡️ Where files will be saved?
-Configurations: `/etc/nixos"`<br>
-Shared dotfiles: `/etc/nixos/molnixos"`<br>
-User dotfiles: `~/.local/share/molnios-shared`<br>
-Configurations: `~/.config`
+Configurations: `/Users/Account/maconlyos/shared`<br>
+Shared dotfiles: `/Users/Account/maconlyos`
+
+### 🔄️ How to install/update system?
+
+#### Installation:
+1. `sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)`<br>
+2. `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`<br>
+3. `git clone https://gitlab.com/al1h3n/molnios-install.git`<br>
+4. `sudo sh molnios.sh -f`
+
+#### Manual updating:
+1. `nix flake update`
+2. `darwin-rebuild switch --impure --flake .#main`
 
 ### 🕝 When to install?
-Install MolnixOS right after you had installed nixOS. 
+Install MaconlyOS right after you had installed macOS. 
