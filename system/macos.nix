@@ -9,6 +9,16 @@
 
         show-recents = false;
         minimize-to-application = true;
+
+        persistent-apps = [
+          "/Applications/Firefox.app"
+          "/Applications/Nix Apps/VSCodium.app"
+          "/Applications/Nix Apps/Obsidian.app"
+          "/Applications/Nix Apps/Vesktop.app"
+          "/Applications/Nix Apps/Spotify.app"
+          "/Applications/Nix Apps/kitty.app"
+          "/Applications/Nix Apps/OBS.app"
+        ];
       };
 
       finder = {
