@@ -35,9 +35,8 @@ in {
   # 5. Packages available system-wide.
   environment = {
     variables = {
-      SHARED_PATH   = variables.shared;
-      SHARED_MEDIA_PATH = variables.media;
       L_PATH = variables.lshared;
+      SHARED_MEDIA_PATH = variables.media;
       JAVA_HOME = "${pkgs.temurin-bin-21}";
       GTK_THEME = variables.theme_gtk;
     };
