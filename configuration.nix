@@ -1,5 +1,4 @@
 # configuration.nix
-# run darwin-rebuild switch to reload
 { config, pkgs, ... }:
 let
   variables = import ./variables.nix;
@@ -49,6 +48,9 @@ in {
       # Main tools.
       curl git openssh killall
       fastfetch countryfetch btop neovim
+
+      # Activation
+      mkalias
     ];
   };
 
@@ -106,10 +108,42 @@ in {
       cleanup = "zap"; # Remove unlisted packages.
     };
     casks = [
-      "steam"
-      "logi-options+"  # replaces piper/openrgb for Logitech
-      "stats"          # replaces cpu-x
-      "whisky"         # replaces wine stack
+      # Utilities
+      "mounty" "the-unarchiver" "iina" "stats"
+
+      # Gaming
+      "steam" "whisky" "logi-g-hub"
+
+      # Art.
+      # fl-studio
     ];
+    masApps = {
+      "Yoink" = 457622435;
+      "Xcode" = 497799835;
+      "Word"       = 462054704;
+      "Excel"      = 462058435;
+      "PowerPoint" = 462062816;
+    };
   };
+
+  # 10. Activation script.
+  system.activationScripts.applications.text =
+    let
+      env = pkgs.buildEnv {
+        name = "system-applications";
+        paths = config.environment.systemPackages;
+        pathsToLink = "/Applications";
+      };
+    in pkgs.lib.mkForce ''
+      # Set up applications.
+      echo "setting up /Applications..." >&2
+      rm -rf /Applications/Nix\ Apps
+      mkdir -p /Applications/Nix\ Apps
+      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+      while read -r src; do
+        app_name=$(basename "$src")
+        echo "copying $src" >&2
+        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+      done
+    '';
 }

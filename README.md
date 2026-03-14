@@ -19,4 +19,7 @@ Shared dotfiles: `/Users/Account/maconlyos/shared`
 2. `darwin-rebuild switch --impure --flake .#main`
 
 ### 🕝 When to install?
-Install MaconlyOS right after you had installed macOS. 
+Install MaconlyOS right after you had installed macOS.
+
+## 🪄 FAQ:
+To find packages id to add in _masApps_ use `mas search <package>`
