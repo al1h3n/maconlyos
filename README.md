@@ -3,8 +3,8 @@ Open variables.nix and change everything you need.<br>
 For instance, location of hyprland configuration.
 
 ### ➡️ Where files will be saved?
-Configurations: `/Users/Account/maconlyos/shared`<br>
-Shared dotfiles: `/Users/Account/maconlyos`
+Configurations (.nix files): `/Users/Account/maconlyos`<br>
+Shared dotfiles: `/Users/Account/maconlyos/shared`
 
 ### 🔄️ How to install/update system?
 
