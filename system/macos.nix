@@ -33,6 +33,7 @@
 
       iCal._first_day_of_week_ = “Monday”;
       screencapture.type = "jpg";
+      loginwindow.GuestEnabled = false;
 
       NSGlobalDomain = {
         AppleICUForce24HourTime = true;
